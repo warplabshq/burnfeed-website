@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
+    <meta name="referrer" content="no-referrer">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
     <link rel="icon" href="favicon.png" sizes="32x32" type="image/png" />
@@ -25,6 +26,11 @@
     </header>
 
     <main class="wrap doc">
+      <div id="failed" hidden>
+        <h1>Payment didn't go through.</h1>
+        <p>Your payment wasn't completed, so there's no key yet. You can <a href="buy.html">try again</a>, or write to <a href="mailto:mail@warplabs.co">mail@warplabs.co</a> if you were charged.</p>
+      </div>
+      <div id="done">
       <h1>Thank you.</h1>
       <p>Your purchase is complete. Dodo Payments has emailed your license key with the receipt; keep that email.</p>
 
@@ -34,7 +40,8 @@
         <p class="actions"><a class="button" id="open" href="#">Open in Burnfeed</a><a id="download" href="#">Download Burnfeed first</a></p>
       </div>
       <div id="nokey">
-        <p>Open the Burnfeed app and paste the key from the email. If it isn't installed yet, <a class="download" href="#">download it</a>; the key works on two of your Macs.</p>
+        <p>Open the Burnfeed app and paste the key from the email. If it isn't installed yet, <a class="download" href="#">download it</a>. Your key works on two Macs, or ten with Burnfeed Team.</p>
+      </div>
       </div>
 
       <h2>If something's off</h2>
@@ -46,8 +53,15 @@
       // into the burnfeed:// link you click.
       const DOWNLOAD = "https://github.com/warplabshq/burnfeed-releases/releases/latest/download/Burnfeed.dmg";
       for (const a of document.querySelectorAll("#download, .download")) a.href = DOWNLOAD;
-      const key = new URLSearchParams(location.search).get("license_key");
-      if (key) {
+      const params = new URLSearchParams(location.search);
+      const key = params.get("license_key");
+      // Dodo also comes back here when a payment fails (status=failed, cancelled, …)
+      const status = params.get("status");
+      if (status && status !== "succeeded" && !key) {
+        document.getElementById("failed").hidden = false;
+        document.getElementById("done").hidden = true;
+        history.replaceState(null, "", location.pathname);
+      } else if (key) {
         document.getElementById("haskey").hidden = false;
         document.getElementById("nokey").hidden = true;
         document.getElementById("key").textContent = key;

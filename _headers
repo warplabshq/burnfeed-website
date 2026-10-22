@@ -10,6 +10,11 @@
   Content-Type: application/xml
 
 # Dodo's return page carries a license key in the URL: don't leak it onwards
+# (Cloudflare Pages serves it at /thanks; .html URLs redirect there)
+/thanks
+  Referrer-Policy: no-referrer
+  Cache-Control: no-store
+
 /thanks.html
   Referrer-Policy: no-referrer
   Cache-Control: no-store
