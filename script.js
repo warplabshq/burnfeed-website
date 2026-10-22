@@ -10,6 +10,218 @@ const FIRE_PALETTE = [
 ];
 const FIRE_MAX = FIRE_PALETTE.length - 1;
 
+// The demo: a YouTube home page with the Burnfeed menu open. Turning YouTube on burns the
+// feed with the same low-res "Doom fire" the extension once played, and a quote takes its
+// place; turning it off brings the feed back.
+(() => {
+  const demo = document.querySelector('[data-demo]');
+  if (!demo) return;
+
+  const feed = demo.querySelector('[data-feed]');
+  const canvas = demo.querySelector('[data-fire]');
+  const toggle = demo.querySelector('[data-burn]');
+  const mirror = demo.querySelector('[data-mirror]');
+  const status = demo.querySelector('[data-status]');
+  const count = demo.querySelector('[data-count]');
+  const replay = demo.querySelector('[data-replay]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Runs the fire on `canvas` (already sized and positioned by the caller, in CSS px).
+  // Behind a ragged burn line climbing from the bottom, each cell flashes ember,
+  // chars, then turns to ash in `cover` ([r, g, b], usually the page background;
+  // null leaves it transparent). Flames lick above the line and embers drift up.
+  // `onFront(fraction burnt)` runs every frame. Resolves when it has burnt out,
+  // with the canvas still showing the ash for the caller to fade away.
+  const CHAR = [26, 14, 9];
+  const GLOW = [255, 132, 28];
+  const pixelFire = (canvas, { duration = 1100, cell = 7, cover = null, embers = true, onFront = null } = {}) =>
+    new Promise((resolve) => {
+      const cssW = canvas.clientWidth || parseFloat(canvas.style.width) || 1;
+      const cssH = canvas.clientHeight || parseFloat(canvas.style.height) || 1;
+      const cols = Math.max(4, Math.ceil(cssW / cell));
+      const rows = Math.max(4, Math.ceil(cssH / cell));
+      const cells = cols * rows;
+      canvas.width = cols;
+      canvas.height = rows;
+      canvas.style.imageRendering = 'pixelated';
+      const ctx = canvas.getContext('2d');
+      const image = ctx.createImageData(cols, rows);
+      const data = image.data;
+      const fire = new Uint8Array(cells);
+      const burntAt = new Float64Array(cells).fill(-1);
+      const sparks = [];
+      const tail = 420; // ms for the last flames and embers after the sweep
+      const charMs = 160;
+
+      // A wavy, slightly noisy burn line instead of a straight wipe
+      const p1 = Math.random() * 6.28;
+      const p2 = Math.random() * 6.28;
+      const jitter = Float32Array.from({ length: cols }, (_, x) =>
+        Math.sin(x * 0.35 + p1) * 1.8 + Math.sin(x * 0.11 + p2) * 2.4 + Math.random() * 1.2,
+      );
+
+      // Flames reach about half the canvas whatever its size, and spread fast
+      // enough to keep up with the climbing line
+      const flameRows = Math.max(4, rows * 0.55);
+      const coolMax = Math.min(8, Math.max(2, Math.round((2 * FIRE_MAX) / flameRows + 1)));
+      const passes = Math.max(1, Math.ceil((((rows + 10) * 33) / duration) * 1.7));
+
+      const spread = () => {
+        for (let x = 0; x < cols; x++) {
+          for (let y = 1; y < rows; y++) {
+            const src = y * cols + x;
+            const heat = fire[src];
+            if (heat === 0) {
+              fire[src - cols] = 0;
+            } else {
+              const wind = (Math.random() * 3) | 0;
+              const dst = Math.min(cells - 1, Math.max(cols, src - wind + 1));
+              fire[dst - cols] = Math.max(0, heat - ((Math.random() * coolMax) | 0));
+            }
+          }
+        }
+      };
+
+      const put = (i, r, g, b, a = 255) => {
+        const o = i * 4;
+        data[o] = r;
+        data[o + 1] = g;
+        data[o + 2] = b;
+        data[o + 3] = a;
+      };
+
+      const start = performance.now();
+      let last = start;
+
+      const frame = (now) => {
+        const t = now - start;
+        const progress = Math.min(1, t / duration);
+        const base = rows - progress * (rows + 10);
+
+        // Advance the burn line: cells at or below it are burning or burnt
+        if (t <= duration + 40) {
+          for (let x = 0; x < cols; x++) {
+            const front = Math.round(base + jitter[x]);
+            for (let y = Math.max(0, front); y < rows; y++) {
+              const i = y * cols + x;
+              if (burntAt[i] < 0) burntAt[i] = t;
+              fire[i] = y === front ? FIRE_MAX - ((Math.random() * 4) | 0) : 0;
+            }
+            if (embers && front > 0 && front < rows && Math.random() < 0.06) {
+              sparks.push({ x: x + Math.random(), y: front - 1, vx: (Math.random() - 0.5) * 0.35, vy: -(0.35 + Math.random() * 0.55), born: t, life: 380 + Math.random() * 520 });
+            }
+          }
+        }
+        // Fixed ~30 steps a second whatever the display's refresh rate
+        for (; last + 33 <= now; last += 33) {
+          for (let i = 0; i < passes; i++) spread();
+          for (const s of sparks) {
+            s.x += s.vx;
+            s.y += s.vy;
+          }
+        }
+
+        for (let i = 0; i < cells; i++) {
+          const heat = fire[i];
+          if (heat >= 5) {
+            const [r, g, b] = FIRE_PALETTE[heat];
+            put(i, r, g, b);
+            continue;
+          }
+          const at = burntAt[i];
+          if (at < 0) {
+            const [r, g, b] = FIRE_PALETTE[heat];
+            put(i, r, g, b, heat * 50); // untouched, or the faint tip of a flame
+            continue;
+          }
+          const age = t - at;
+          if (age < charMs) {
+            // Glowing ember cooling to char
+            const k = age / charMs;
+            put(i, GLOW[0] + (CHAR[0] - GLOW[0]) * k, GLOW[1] + (CHAR[1] - GLOW[1]) * k, GLOW[2] + (CHAR[2] - GLOW[2]) * k);
+          } else if (cover) {
+            // Char crumbling to ash over the next moment
+            const k = Math.min(1, (age - charMs) / 260);
+            put(i, CHAR[0] + (cover[0] - CHAR[0]) * k, CHAR[1] + (cover[1] - CHAR[1]) * k, CHAR[2] + (cover[2] - CHAR[2]) * k);
+          } else {
+            put(i, CHAR[0], CHAR[1], CHAR[2], Math.max(0, 255 - ((age - charMs) / 260) * 255));
+          }
+        }
+        for (let n = sparks.length - 1; n >= 0; n--) {
+          const s = sparks[n];
+          const k = (t - s.born) / s.life;
+          const x = Math.floor(s.x);
+          const y = Math.floor(s.y);
+          if (k >= 1 || y < 0 || x < 0 || x >= cols) {
+            sparks.splice(n, 1);
+            continue;
+          }
+          if (y < rows) put(y * cols + x, 255, 220 - 170 * k, 90 - 80 * k);
+        }
+        ctx.putImageData(image, 0, 0);
+        if (onFront) onFront(Math.min(1, Math.max(0, (rows - base) / rows)));
+
+        if (t < duration + tail) requestAnimationFrame(frame);
+        else resolve();
+      };
+      requestAnimationFrame(frame);
+    });
+
+  const rgbOf = (el) => {
+    for (let node = el; node; node = node.parentElement) {
+      const m = getComputedStyle(node).backgroundColor.match(/rgba?\((\d+)[ ,]+(\d+)[ ,]+(\d+)(?:[ ,/]+([\d.]+))?/);
+      if (m && (m[4] == null || Number(m[4]) > 0.5)) return [Number(m[1]), Number(m[2]), Number(m[3])];
+    }
+    return [255, 255, 255];
+  };
+
+  let busy = false;
+
+  const setOn = (on) => {
+    toggle.setAttribute('aria-checked', String(on));
+    mirror.classList.toggle('on', on);
+    status.textContent = on ? 'Feed burned' : 'Feed showing';
+    count.textContent = on ? '1 feed burning' : 'Nothing burning';
+  };
+
+  const burn = async () => {
+    busy = true;
+    toggle.classList.remove('cta');
+    setOn(true);
+    if (!reduceMotion && canvas.getContext) {
+      canvas.style.transition = 'none';
+      canvas.style.opacity = '1';
+      await pixelFire(canvas, {
+        duration: 1900,
+        cell: 7,
+        cover: rgbOf(canvas.parentElement),
+        onFront: (burnt) => { feed.style.clipPath = `inset(0 0 ${(burnt * 100).toFixed(2)}% 0)`; },
+      });
+      canvas.style.transition = 'opacity 0.45s ease-out';
+      canvas.style.opacity = '0';
+    }
+    demo.classList.add('is-burned');
+    busy = false;
+    replay.hidden = false;
+  };
+
+  const restore = () => {
+    setOn(false);
+    demo.classList.remove('is-burned');
+    feed.style.clipPath = '';
+    canvas.getContext?.('2d')?.clearRect(0, 0, canvas.width, canvas.height);
+    replay.hidden = true;
+    toggle.classList.add('cta');
+  };
+
+  toggle.addEventListener('click', () => {
+    if (busy) return;
+    if (demo.classList.contains('is-burned')) restore();
+    else burn();
+  });
+  replay.addEventListener('click', () => { if (!busy) restore(); });
+})();
+
 // Hero background: an endless feed falls, column by column, into a fire that
 // never goes out. The cards are DOM (CSS transforms, cheap to composite); the
 // fire is the same Doom fire at a few hundred cells wide, scaled up pixelated.

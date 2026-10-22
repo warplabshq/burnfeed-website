@@ -18,9 +18,9 @@
 
     <link rel="icon" href="favicon.png?v=2" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="logo.png?v=2">
-    <link rel="stylesheet" href="/style.css?n=8">
+    <link rel="stylesheet" href="/style.css?n=11">
 
-    <script src="/script.js?n=5" defer></script>
+    <script src="/script.js?n=6" defer></script>
   </head>
   <body>
     <header class="wrap bar">
@@ -65,10 +65,60 @@
           </div>
         </div>
 
-        <figure class="demo wrap">
+        <figure class="demo wrap" data-demo>
           <h2 class="demo-title">The feed burns.<br>Everything else stays.</h2>
-          <img class="shot" src="assets/burnfeed-youtube.webp" width="980" height="641" loading="lazy" alt="YouTube in Safari with Burnfeed: the home feed replaced by a quote, and the Burnfeed menu open with a switch for each part of YouTube.">
-          <figcaption><span>Real YouTube, with Burnfeed. Search and the videos you came for keep working.</span></figcaption>
+          <div class="yt">
+            <div class="titlebar">
+              <span class="dots"><i></i><i></i><i></i></span>
+              <span class="tb-ext" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M2,3.5A2 2 0 0 1 4,1.5H12A2 2 0 0 1 14,3.5V12H12V11H10V13H8V11H6V14H4V12H2ZM4,4h8v1.5h-8zM4,7h6v1.5h-6z"/></svg></span>
+              <span class="address">www.youtube.com</span>
+            </div>
+            <div class="yt-page" aria-hidden="true">
+              <aside class="yt-guide">
+                <div class="yt-logo"><i></i>YouTube</div>
+                <div class="yt-nav on"><i></i>Home</div>
+                <div class="yt-nav"><i></i>Shorts</div>
+                <div class="yt-nav"><i></i>Subscriptions</div>
+                <div class="yt-nav"><i></i>You</div>
+                <div class="yt-nav"><i></i>History</div>
+              </aside>
+              <div class="yt-main">
+                <div class="search">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
+                  Search
+                </div>
+                <div class="feedwrap">
+                  <div class="feed" data-feed><div class="vid"><i class="t1"></i><b></b><b class="s"></b></div><div class="vid"><i class="t2"></i><b></b><b class="s"></b></div><div class="vid"><i class="t3"></i><b></b><b class="s"></b></div><div class="vid"><i class="t4"></i><b></b><b class="s"></b></div><div class="vid"><i class="t5"></i><b></b><b class="s"></b></div><div class="vid"><i class="t6"></i><b></b><b class="s"></b></div><div class="vid"><i class="t7"></i><b></b><b class="s"></b></div><div class="vid"><i class="t8"></i><b></b><b class="s"></b></div><div class="vid"><i class="t9"></i><b></b><b class="s"></b></div></div>
+                  <blockquote class="quote">
+                    <p>“Rule your mind or it will rule you.”</p>
+                    <cite>Horace</cite>
+                  </blockquote>
+                  <canvas class="fire" data-fire></canvas>
+                </div>
+              </div>
+            </div>
+
+            <div class="bf-pop">
+              <div class="bf-head"><img src="logo.png?v=2" alt="" width="18" height="18"><strong>Burnfeed</strong><span data-count>Nothing burning</span></div>
+              <div class="bf-card">
+                <div class="bf-site">
+                  <span class="bf-yt" aria-hidden="true"></span>
+                  <span class="bf-name"><strong>YouTube</strong><span data-status>Feed showing</span></span>
+                  <button class="bsw cta" type="button" role="switch" aria-checked="false" aria-label="Burn the YouTube feed" data-burn><span class="hint" aria-hidden="true">Click to burn</span></button>
+                </div>
+                <div class="bf-row bf-muted"><span>Show feed for</span><span class="bf-seg"><i>5 min</i><i>15 min</i><i>1 hr</i></span></div>
+                <div class="bf-label">Burn on YouTube</div>
+                <div class="bf-row"><span>Main feed</span><span class="bsw small" data-mirror></span></div>
+                <div class="bf-row"><span>Shorts button</span><span class="bsw small on"></span></div>
+                <div class="bf-row"><span>Suggested videos</span><span class="bsw small"></span></div>
+                <div class="bf-row"><span>Video comments</span><span class="bsw small"></span></div>
+              </div>
+            </div>
+          </div>
+          <figcaption>
+            <span>Try it: turn YouTube on in the Burnfeed menu. Search and the videos you came for keep working.</span>
+            <button class="text-button" type="button" data-replay hidden>Bring the feed back</button>
+          </figcaption>
         </figure>
       </section>
 
