@@ -1,0 +1,30 @@
+# Burnfeed
+
+> Burnfeed is a Safari extension for Mac that hides the endless feed on Facebook, Instagram, X (Twitter), YouTube, LinkedIn and Reddit, part by part, and leaves a quote in its place. Search, messages and posting keep working. Nothing about your browsing leaves the Mac. $4.99 once (two Macs) or $19.99 for a team of five; no subscription. Also on the Mac App Store.
+
+Made by Priyam Ventures Private Limited. Mac only (Safari). Support: mail@warplabs.co
+
+## Product
+- [Home](https://burnfeed.app/): what it does, the time maths, a live demo
+- [Pricing](https://burnfeed.app/buy): plans, how buying works, FAQ
+- [Help](https://burnfeed.app/help): setup in Safari, pausing, permissions, refunds
+- [Changelog](https://burnfeed.app/changelog): every version since 2022
+- [Mac App Store](https://apps.apple.com/app/burnfeed/id6444266324?mt=12)
+
+## Guides
+- [Hide YouTube Shorts in Safari on Mac](https://burnfeed.app/guides/hide-youtube-shorts-safari): Remove the Shorts button and the home feed full of Shorts from YouTube in Safari on your Mac, and keep search, subscriptions and the videos you meant to watch.
+- [Hide YouTube recommendations on Mac](https://burnfeed.app/guides/hide-youtube-recommendations-mac): Hide YouTube's home feed, suggested videos, end-screen suggestions and comments in Safari on Mac, part by part, with Burnfeed.
+- [Hide the Facebook feed on Mac](https://burnfeed.app/guides/hide-facebook-feed-mac): Hide the Facebook news feed and stories in Safari on Mac, and keep Messenger, groups, events and Marketplace. Burnfeed puts a quote where the feed was.
+- [Hide the Instagram feed on Mac](https://burnfeed.app/guides/hide-instagram-feed-mac): Hide the Instagram home feed, stories and "Suggested for you" in Safari on Mac. Keep messages, your profile and posting.
+- [Hide the X (Twitter) feed on Mac](https://burnfeed.app/guides/hide-x-twitter-feed-mac): Hide the X home timeline, trends, "What's happening" and Explore posts in Safari on Mac. Keep search, messages, notifications and posting.
+- [Hide the LinkedIn feed on Mac](https://burnfeed.app/guides/hide-linkedin-feed-mac): Hide the LinkedIn home feed and news sidebar in Safari on Mac. Keep messages, jobs, notifications and your network.
+- [Hide the Reddit home feed on Mac](https://burnfeed.app/guides/hide-reddit-home-feed-mac): Hide Reddit's home feed, r/popular and r/all, sidebars, recently viewed posts and games in Safari on Mac. Keep the communities you open on purpose.
+
+## Facts
+- What it can hide: YouTube home feed, Shorts button, suggested videos, end-screen suggestions, comments, live chat, notifications, subscriptions, Explore; X home timeline, trends, Today's News, Explore posts; Facebook news feed, stories, groups feed; Instagram home feed, stories, Suggested for you, Explore suggestions; LinkedIn home feed and news sidebar; Reddit home feed, r/all and r/popular, subreddit feeds, sidebars, recently viewed, games.
+- Pause: show a feed for 5, 15 or 60 minutes; it burns again on its own.
+- Blocking rules update from burnfeed.app when sites change, without an app update.
+- Requirements: macOS 13 and Safari 18.4 or later for the version from burnfeed.app; the App Store version needs macOS 12.
+
+## Legal
+- [Privacy Policy](https://burnfeed.app/privacy-policy)
