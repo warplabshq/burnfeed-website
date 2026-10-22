@@ -1,10 +1,11 @@
 {
 	"schemaVersion": 1,
-	"rulesVersion": 202610220951,
+	"rulesVersion": 202610221226,
 	"source": {
 		"upstream": "https://github.com/jordwest/news-feed-eradicator.git",
 		"commit": "3cd4367cfc2db10c2722cc39b87c274392ca59ab",
-		"date": "2026-08-23"
+		"date": "2026-08-23",
+		"license": "AGPL-3.0-only"
 	},
 	"sites": [
 		{
