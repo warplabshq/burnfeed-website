@@ -7,51 +7,92 @@
     <meta name="description" content="Burnfeed for Mac: $4.99 once for two Macs, or $19.99 for a team of five.">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-    <link rel="icon" href="favicon.png" sizes="32x32" type="image/png" />
-    <link rel="stylesheet" href="/style.css?n=7">
+    <link rel="icon" href="favicon.png?v=2" sizes="32x32" type="image/png" />
+    <link rel="stylesheet" href="/style.css?n=8">
     <style>
-      .lede { font-size: 19px; line-height: 1.5; color: var(--text-2); margin: 0 0 8px; }
-      .plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 32px 0 20px; }
-      .plan { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 28px 24px 24px; border-radius: 18px; background: var(--group); border: 1px solid var(--line); scroll-margin-top: 24px; }
-      .plan.pick { border: 2px solid var(--ember); padding: 27px 23px 23px; }
-      .plan .tag { position: absolute; top: -12px; left: 22px; padding: 3px 10px; border-radius: 99px; background: var(--ember); color: #fff; font-size: 12px; font-weight: 600; letter-spacing: 0.01em; }
-      .plan h2 { margin: 0; font-size: 19px; letter-spacing: -0.01em; }
-      .plan .who { margin: 0; color: var(--text-2); font-size: 15px; }
-      .plan .price { font-size: 44px; font-weight: 700; letter-spacing: -0.03em; margin: 12px 0 0; line-height: 1; }
-      .plan .price small { font-size: 15px; font-weight: 500; color: var(--text-2); letter-spacing: 0; }
-      .plan .unit { margin: 6px 0 0; font-size: 14px; color: var(--ember-text); font-weight: 600; }
-      .plan ul { list-style: none; margin: 18px 0 22px; padding: 0; }
-      .plan li { position: relative; padding: 5px 0 5px 24px; color: var(--text); font-size: 15px; }
-      .plan li::before { content: ""; position: absolute; left: 2px; top: 11px; width: 10px; height: 6px; border-left: 2px solid var(--ember); border-bottom: 2px solid var(--ember); transform: rotate(-45deg); }
-      .plan .button { margin-top: auto; text-align: center; }
+      .pricing { max-width: calc(940px + 48px); padding-top: 56px; padding-bottom: 96px; }
+      .p-hero { text-align: center; max-width: 640px; margin: 0 auto; }
+      .p-hero img { width: 64px; height: 64px; display: block; margin: 0 auto 20px; }
+      .p-hero h1 { font-size: clamp(38px, 6.4vw, 56px); line-height: 1.04; font-weight: 700; letter-spacing: -0.035em; margin: 0; }
+      .p-hero p { margin: 18px 0 0; font-size: 19px; line-height: 1.5; color: var(--text-2); }
+      .p-hero p strong { color: var(--text); font-weight: 600; }
+
+      .plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; max-width: 760px; margin: 48px auto 0; }
+      .plan { position: relative; display: flex; flex-direction: column; padding: 30px 28px 26px; border-radius: 22px; background: var(--group); border: 1px solid var(--line); scroll-margin-top: 24px; }
+      .plan.pick { border: 2px solid var(--ember); padding: 29px 27px 25px; box-shadow: 0 24px 60px -32px rgba(240, 90, 20, 0.45); }
+      .plan .tag { position: absolute; top: -12px; left: 26px; padding: 3px 10px; border-radius: 99px; background: var(--ember); color: #fff; font-size: 12px; font-weight: 600; }
+      .plan .tag.dark { background: var(--text); color: var(--page); }
+      .plan .icons { display: flex; gap: 6px; height: 40px; margin-bottom: 16px; }
+      .plan .icons img { width: 40px; height: 40px; }
+      .plan .icons.many img { width: 30px; height: 30px; margin-top: 10px; }
+      .plan h2 { margin: 0; font-size: 20px; letter-spacing: -0.01em; }
+      .plan .who { margin: 4px 0 0; color: var(--text-2); font-size: 15px; }
+      .plan .price { font-size: 52px; font-weight: 700; letter-spacing: -0.04em; margin: 18px 0 0; line-height: 1; }
+      .plan .price small { font-size: 15px; font-weight: 500; color: var(--text-2); letter-spacing: 0; margin-left: 2px; }
+      .plan .unit { margin: 8px 0 0; font-size: 14px; color: var(--ember-text); font-weight: 600; }
+      .plan ul { list-style: none; margin: 20px 0 24px; padding: 0; }
+      .plan li { position: relative; padding: 6px 0 6px 26px; font-size: 15px; }
+      .plan li::before { content: ""; position: absolute; left: 3px; top: 12px; width: 10px; height: 6px; border-left: 2px solid var(--ember); border-bottom: 2px solid var(--ember); transform: rotate(-45deg); }
+      .plan .button { margin-top: auto; }
       .plan:not(.pick) .button { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--text) 24%, transparent); }
-      .included { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 8px 0 28px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-      .included div { font-size: 14px; color: var(--text-2); line-height: 1.4; }
-      .included strong { display: block; color: var(--text); font-size: 15px; margin-bottom: 2px; }
-      .trust { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 12px; font-size: 14px; color: var(--text-2); }
-      .fine { color: var(--text-2); font-size: 13px; line-height: 1.5; }
-      @media (max-width: 640px) { .plans { grid-template-columns: 1fr; gap: 26px; } .included { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+      .assure { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin: 26px 0 0; font-size: 14px; color: var(--text-2); }
+      .assure span::before { content: "✓"; color: var(--ember); font-weight: 700; margin-right: 6px; }
+
+      .p-section { margin-top: 88px; }
+      .p-section > h2 { text-align: center; font-size: clamp(26px, 4vw, 34px); letter-spacing: -0.025em; margin: 0 0 28px; }
+      .steps { list-style: none; counter-reset: step; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; }
+      .steps li { counter-increment: step; padding: 24px; border-radius: 18px; background: var(--panel); }
+      .steps li::before { content: counter(step); display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--ember); color: #fff; font-weight: 700; font-size: 15px; margin-bottom: 14px; }
+      .steps strong { display: block; font-size: 17px; margin-bottom: 4px; }
+      .steps span { color: var(--text-2); font-size: 15px; line-height: 1.45; }
+
+      .included { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+      .included div { font-size: 15px; color: var(--text-2); line-height: 1.45; }
+      .included strong { display: block; color: var(--text); font-size: 16px; margin-bottom: 4px; }
+
+      .store { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 88px; padding: 22px 26px; border-radius: 18px; border: 1px solid var(--line); }
+      .store p { margin: 0; color: var(--text-2); font-size: 15px; }
+      .store p strong { color: var(--text); }
+      .store a { font-size: 15px; font-weight: 600; white-space: nowrap; }
+
+      .faq { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 40px; }
+      .faq h3 { font-size: 16px; margin: 18px 0 6px; }
+      .faq p { margin: 0; color: var(--text-2); font-size: 15px; line-height: 1.5; }
+      .fine { margin: 56px 0 0; color: var(--text-3); font-size: 13px; line-height: 1.5; text-align: center; }
+
+      @media (max-width: 760px) {
+        .plans, .steps, .faq { grid-template-columns: 1fr; }
+        .plans { gap: 28px; }
+        .included { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .p-section, .store { margin-top: 64px; }
+      }
     </style>
   </head>
   <body>
     <header class="wrap bar">
-      <a class="brand" href="/" aria-label="Burnfeed home"><img src="logo.png" alt="" width="26" height="26">Burnfeed</a>
+      <a class="brand" href="/" aria-label="Burnfeed home"><img src="logo.png?v=2" alt="" width="26" height="26">Burnfeed</a>
       <nav aria-label="Site">
+        <a class="hide-sm" href="about.html">About</a>
         <a href="help.html">Help</a>
         <a class="hide-sm" href="changelog.html">Changelog</a>
       </nav>
     </header>
 
-    <main class="wrap doc">
-      <h1>Pay once. Keep your time.</h1>
-      <p class="lede">No subscription and no account. Check out, download Burnfeed, and your key activates it in one click.</p>
+    <main class="wrap pricing">
+      <section class="p-hero">
+        <img src="logo.png?v=2" alt="">
+        <h1>Pay once.<br>Keep your time.</h1>
+        <p>The typical social media user gives feeds <strong>858 hours a year</strong>. Burnfeed costs less than a cent for each of them.</p>
+      </section>
 
       <div class="plans">
         <section class="plan pick" id="personal">
           <span class="tag">For you</span>
+          <div class="icons"><img src="logo.png?v=2" alt=""></div>
           <h2>Burnfeed</h2>
           <p class="who">One person, two Macs</p>
-          <p class="price">$4.99 <small>once</small></p>
+          <p class="price">$4.99<small>once</small></p>
           <p class="unit">Less than one coffee.</p>
           <ul>
             <li>Your laptop and your desktop</li>
@@ -61,10 +102,11 @@
           <a class="button" data-plan="personal" href="https://dodo.pe/burnfeed">Buy Burnfeed</a>
         </section>
         <section class="plan" id="team">
-          <span class="tag" style="background: var(--text)">For teams</span>
+          <span class="tag dark">For teams</span>
+          <div class="icons many"><img src="logo.png?v=2" alt=""><img src="logo.png?v=2" alt=""><img src="logo.png?v=2" alt=""><img src="logo.png?v=2" alt=""><img src="logo.png?v=2" alt=""></div>
           <h2>Burnfeed Team</h2>
           <p class="who">Five people, two Macs each</p>
-          <p class="price">$19.99 <small>once</small></p>
+          <p class="price">$19.99<small>once</small></p>
           <p class="unit">Under $4 a person.</p>
           <ul>
             <li>One key for the whole team</li>
@@ -74,30 +116,55 @@
           <a class="button" data-plan="team" href="https://dodo.pe/burnfeed-team">Buy Burnfeed Team</a>
         </section>
       </div>
+      <p class="assure"><span>No subscription</span><span>No account</span><span>14-day refund</span><span>Secure checkout</span></p>
 
-      <div class="included" aria-label="Every plan includes">
-        <div><strong>Six sites</strong>Facebook, Instagram, X, YouTube, LinkedIn, Reddit</div>
-        <div><strong>Your choice</strong>Burn whole feeds or just parts, like comments or Shorts</div>
-        <div><strong>Keeps working</strong>Fixes arrive on their own when sites change</div>
-        <div><strong>Private</strong>Nothing about your browsing leaves your Mac</div>
+      <section class="p-section" aria-labelledby="how">
+        <h2 id="how">Two minutes from now.</h2>
+        <ol class="steps">
+          <li><strong>Pay</strong><span>Card, Apple Pay and more, through Dodo Payments.</span></li>
+          <li><strong>Download</strong><span>Burnfeed for Mac, right after checkout. Needs macOS 13 and Safari 18.4 or later.</span></li>
+          <li><strong>Burn</strong><span>One click opens your key in Burnfeed. Turn it on in Safari and the feeds are gone.</span></li>
+        </ol>
+      </section>
+
+      <section class="p-section" aria-labelledby="every">
+        <h2 id="every">Every plan includes</h2>
+        <div class="included">
+          <div><strong>Six sites</strong>Facebook, Instagram, X, YouTube, LinkedIn and Reddit.</div>
+          <div><strong>Your choice</strong>Burn whole feeds or just parts, like comments or Shorts.</div>
+          <div><strong>Keeps working</strong>When a site changes, fixes arrive on their own.</div>
+          <div><strong>Private</strong>Nothing about your browsing leaves your Mac.</div>
+        </div>
+      </section>
+
+      <div class="store">
+        <p><strong>Prefer the App Store?</strong> Same Burnfeed, updated by Apple.</p>
+        <a href="https://apps.apple.com/app/burnfeed/id6444266324?mt=12" target="_blank" rel="noopener">Mac App Store ↗</a>
       </div>
 
-      <p class="trust"><span>Secure checkout by Dodo Payments</span><span>14-day refund, no questions asked</span><span>Also on the <a href="https://apps.apple.com/app/burnfeed/id6444266324?mt=12" target="_blank" rel="noopener">Mac App Store</a></span></p>
-      <p class="fine">Sold by Priyam Ventures Private Limited. Dodo Payments is the merchant of record: they take the payment, handle tax and email your receipt with your license key. Prices may show in your currency at checkout, plus local tax where it applies. Needs macOS 13 or later with Safari 18.4 or later.</p>
+      <section class="p-section" aria-labelledby="faq">
+        <h2 id="faq">Questions</h2>
+        <div class="faq">
+          <div>
+            <h3>Is it a subscription?</h3>
+            <p>No. You pay once and keep it, with free updates.</p>
+            <h3>How do I activate my key?</h3>
+            <p>Right after checkout, click "Open in Burnfeed" and the app activates itself. Your key is also in the receipt email from Dodo Payments; paste it into the License tab of the Burnfeed app.</p>
+            <h3>How does Burnfeed Team work?</h3>
+            <p>You get one key. Share it with up to four other people; each of you activates it on up to two Macs, ten Macs in all.</p>
+          </div>
+          <div>
+            <h3>I got a new Mac.</h3>
+            <p>On the old Mac, open the License tab of the Burnfeed app and choose "Deactivate this Mac", then enter your key on the new one. If the old Mac is gone, email us and we'll free the seat.</p>
+            <h3>Can I get a refund?</h3>
+            <p>Yes, within 14 days, no questions asked: email <a href="mailto:mail@warplabs.co">mail@warplabs.co</a> from the address you bought with.</p>
+            <h3>Does it work on iPhone or iPad?</h3>
+            <p>No, Burnfeed is for Safari on Mac.</p>
+          </div>
+        </div>
+      </section>
 
-      <h2>Questions</h2>
-
-      <h3>How do I activate my key?</h3>
-      <p>Right after checkout, click "Open in Burnfeed" and the app activates itself. Your key is also in the receipt email from Dodo Payments: paste it into the License tab of the Burnfeed app.</p>
-
-      <h3>How does Burnfeed Team work?</h3>
-      <p>You get one key. Share it with up to four other people; each of you activates it on up to two Macs, ten Macs in all. Anyone can free their Mac from the License tab to hand the seat to someone else.</p>
-
-      <h3>I got a new Mac.</h3>
-      <p>On the old Mac, open the License tab of the Burnfeed app and choose "Deactivate this Mac", then enter your key on the new one. If the old Mac is gone, email us and we'll free the seat.</p>
-
-      <h3>Can I get a refund?</h3>
-      <p>Yes, within 14 days, no questions asked: email <a href="mailto:mail@warplabs.co">mail@warplabs.co</a> from the address you bought with.</p>
+      <p class="fine">Sold by Priyam Ventures Private Limited. Dodo Payments is the merchant of record: they take the payment, handle tax and email your receipt with your license key. Prices may show in your currency at checkout, plus local tax where it applies.</p>
     </main>
 
     <footer class="foot">
