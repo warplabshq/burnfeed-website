@@ -175,6 +175,8 @@ h1, h2, h3 { font-family: var(--display); margin: 0; }
 .lede em { font-style: normal; color: var(--text); }
 .cta { margin-top: 32px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
 .cta p { margin: 0; font-size: 14px; color: var(--text-2); }
+.cta .store-link { color: var(--text-2); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--text-2) 40%, transparent); text-underline-offset: 3px; margin-left: 4px; }
+.cta .store-link:hover { color: var(--text); }
 
 .works { margin-top: 34px; }
 .works p { margin: 0 0 14px; font-size: 13px; color: var(--text-2); }
