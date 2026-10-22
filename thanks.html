@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Thank you · Burnfeed</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <link rel="icon" href="logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/style.css?n=5">
+    <style>
+      .key { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 18px 0; }
+      .key code { font: 15px ui-monospace, Menlo, monospace; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line, rgba(127,127,127,.25)); -webkit-user-select: all; user-select: all; }
+      .actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 22px 0 8px; }
+    </style>
+  </head>
+  <body>
+    <!-- Dodo Payments returns here after a direct purchase, with ?license_key=… -->
+    <header class="wrap bar">
+      <a class="brand" href="/" aria-label="Burnfeed home"><img src="logo.png" alt="" width="26" height="26">Burnfeed</a>
+      <nav aria-label="Site">
+        <a href="help.html">Help</a>
+      </nav>
+    </header>
+
+    <main class="wrap doc">
+      <h1>Thank you.</h1>
+      <p>Your purchase is complete. Dodo Payments has emailed your license key with the receipt; keep that email.</p>
+
+      <div id="haskey" hidden>
+        <p>Here is your key. Open it in Burnfeed and the app activates itself, or copy it into the Burnfeed app.</p>
+        <p class="key"><code id="key"></code><button class="button" id="copy" type="button">Copy</button></p>
+        <p class="actions"><a class="button" id="open" href="#">Open in Burnfeed</a><a id="download" href="#">Download Burnfeed first</a></p>
+      </div>
+      <div id="nokey">
+        <p>Open the Burnfeed app and paste the key from the email. If it isn't installed yet, <a class="download" href="#">download it</a>; the key works on two of your Macs.</p>
+      </div>
+
+      <h2>If something's off</h2>
+      <p>No email within a few minutes? Check spam, then write to <a href="mailto:mail@warplabs.co">mail@warplabs.co</a> from the address you bought with and we'll resend it.</p>
+    </main>
+
+    <script>
+      // Direct downloads come from the releases repo; the key never leaves this page except
+      // into the burnfeed:// link you click.
+      const DOWNLOAD = "https://github.com/warplabshq/burnfeed-releases/releases/latest/download/Burnfeed.dmg";
+      for (const a of document.querySelectorAll("#download, .download")) a.href = DOWNLOAD;
+      const key = new URLSearchParams(location.search).get("license_key");
+      if (key) {
+        document.getElementById("haskey").hidden = false;
+        document.getElementById("nokey").hidden = true;
+        document.getElementById("key").textContent = key;
+        document.getElementById("open").href = "burnfeed://activate?key=" + encodeURIComponent(key);
+        document.getElementById("copy").addEventListener("click", async (e) => {
+          await navigator.clipboard.writeText(key);
+          e.target.textContent = "Copied";
+        });
+        // Keep the key out of the address bar and history
+        history.replaceState(null, "", location.pathname);
+      }
+    </script>
+  </body>
+</html>

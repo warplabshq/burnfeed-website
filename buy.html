@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Buy Burnfeed</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Burnfeed for Mac: $4.99 once for two Macs, or $19.99 for a team of five. 7-day free trial.">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <link rel="icon" href="logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/style.css?n=5">
+    <style>
+      .plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 28px 0 18px; }
+      .plan { display: flex; flex-direction: column; gap: 10px; padding: 24px; border-radius: 16px; background: var(--group); border: 1px solid var(--line); }
+      .plan h2 { margin: 0; font-size: 18px; }
+      .plan .price { font-size: 34px; font-weight: 700; letter-spacing: -0.02em; margin: 4px 0 0; }
+      .plan .price small { font-size: 15px; font-weight: 500; color: var(--text-2); letter-spacing: 0; }
+      .plan ul { margin: 4px 0 10px; padding-left: 18px; color: var(--text-2); }
+      .plan li { margin: 4px 0; }
+      .plan .button { margin-top: auto; text-align: center; }
+      .fine { color: var(--text-2); font-size: 14px; }
+      @media (max-width: 640px) { .plans { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header class="wrap bar">
+      <a class="brand" href="/" aria-label="Burnfeed home"><img src="logo.png" alt="" width="26" height="26">Burnfeed</a>
+      <nav aria-label="Site">
+        <a href="help.html">Help</a>
+      </nav>
+    </header>
+
+    <main class="wrap doc">
+      <h1>Buy Burnfeed</h1>
+      <p>One purchase, no subscription. Try everything free for 7 days first.</p>
+
+      <div class="plans">
+        <section class="plan">
+          <h2>Burnfeed</h2>
+          <p class="price">$4.99 <small>once</small></p>
+          <ul>
+            <li>For you, on two Macs</li>
+            <li>Every site, every update</li>
+          </ul>
+          <a class="button" data-plan="personal" href="https://dodo.pe/burnfeed">Buy Burnfeed</a>
+        </section>
+        <section class="plan">
+          <h2>Burnfeed Team</h2>
+          <p class="price">$19.99 <small>once</small></p>
+          <ul>
+            <li>One key for up to five people</li>
+            <li>Two Macs each, ten in all</li>
+          </ul>
+          <a class="button" data-plan="team" href="https://dodo.pe/burnfeed-team">Buy Team</a>
+        </section>
+      </div>
+
+      <p class="fine">Payment is handled by Dodo Payments, who email your license key; open it in Burnfeed and it activates itself. Prices may show in your currency at checkout, plus local tax where it applies. 14-day refund, no questions asked: <a href="mailto:mail@warplabs.co">mail@warplabs.co</a>. Needs macOS 13 or later with Safari 18.4 or later.</p>
+    </main>
+
+    <script>
+      // ?test=1 (from a debug build of the app) uses Dodo's test mode and comes back to the local preview
+      if (new URLSearchParams(location.search).has("test")) {
+        const test = { personal: "pdt_0NqHnGVY1aB0XAJtnKBfc", team: "pdt_0NqHnGam7C91MKy9n80Sh" };
+        for (const a of document.querySelectorAll("[data-plan]")) {
+          a.href = `https://test.checkout.dodopayments.com/buy/${test[a.dataset.plan]}?redirect_url=${encodeURIComponent(location.origin + "/thanks.html")}`;
+        }
+      }
+    </script>
+  </body>
+</html>

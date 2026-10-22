@@ -1,0 +1,15 @@
+/rules/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300
+  X-Content-Type-Options: nosniff
+
+# Sparkle and the extension's update notice read this; never cache it, and let the extension fetch it
+/appcast.xml
+  Cache-Control: no-cache
+  Access-Control-Allow-Origin: *
+  Content-Type: application/xml
+
+# Dodo's return page carries a license key in the URL: don't leak it onwards
+/thanks.html
+  Referrer-Policy: no-referrer
+  Cache-Control: no-store

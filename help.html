@@ -5,58 +5,55 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <!-- import the webpage's stylesheet -->
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+
     <link rel="icon" href="logo.png" type="image/x-icon" />
-    <!-- <script src="/script.js" defer></script> -->
-    <script defer data-domain="burnfeed.app" src="http://plausible.priyamraj.com/js/script.js"></script>
+    <link rel="stylesheet" href="/style.css?n=5">
 
-  </head>  
+  </head>
   <body>
-    <section id="heroContainer">
-      <div id="logoAndDownload">
-        <h1 id="appTitle">Burnfeed Help</h1>
-        <p id="appCaption">
-          If none of the FAQs below solve your query, feel free to contact me on hello@priyamraj.com
-          <br>
-          <br>
-          <br>
-<strong>FAQs</strong>
-<br><br>
-1. Why does the extension need "Web Page Contents and Browsing History
-Can read and alter sensitive information on web pages, including passwords, phone numbers and credit cards, and see your browsing history"?
-<br><br>-The extension says it can read your internet history and ‘alter’ specific data like passwords, etc. It's already mentioned in the Privacy Policy along with Apple verifying it before they published the app on the App Store that we do not and never will collect any form of data from the app.
+    <header class="wrap bar">
+      <a class="brand" href="/" aria-label="Burnfeed home"><img src="logo.png" alt="" width="26" height="26">Burnfeed</a>
+      <nav aria-label="Site">
+        <a class="hide-sm" href="about.html">About</a>
+        <a href="help.html">Help</a>
+        <a class="get" href="https://apps.apple.com/in/app/burnfeed/id6444266324?mt=12" target="_blank" rel="noopener">Download</a>
+      </nav>
+    </header>
 
-Any granted or required permissions are just functional needs for the extension to work properly and anything it works with stays within your computer’s local system. 
+    <main class="wrap doc">
+      <h1>Burnfeed Help</h1>
 
-To make the extension work, the extension needs writing permissions to access specific sites (e.g. YouTube) and in Safari, there are no specific set of permissions, even if I had to alter a text inside a web page, it will show the same dialogue for the same. 
+      <p class="muted">If none of the FAQs below solve your query, feel free to contact me on <a href="mailto:mail@warplabs.co">mail@warplabs.co</a></p>
 
-I’m not quite sure about the browsing history permission, it came included along. 
-<br><br>
-<br><br>
+      <h2>FAQs</h2>
 
-2. Something is stuck and won't let me change/enable/disable permissions on the extension.
-<br><br>-This is a common bug, in order to fix it for now, first close any social media tabs and then go to Safari -> Settings -> Websites then scroll down in the left panel
-to reach to the Extensions section and in there, just flip the stuck website's permissions to "Ask" instead of "Allow" and then close the Settings tab. After this, open that site
-and once you get a prompt, choose "Always allow for on this website" so that this problem does not occur again.
-<br><br>
-Do it all the sites if you need to.
+      <h3>1. Why does Safari say Burnfeed can read and alter web pages?</h3>
 
+      <p>Safari shows the same warning for every extension that changes how a page looks, because it can't tell what an extension will do. Burnfeed asks for access only to Facebook, Instagram, X, YouTube, LinkedIn and Reddit, and uses it only to hide the feed on your screen. It doesn't read your passwords or messages, doesn't look at your history, and sends nothing about your browsing anywhere. The <a href="privacy-policy.html">privacy policy</a> has the details.</p>
 
+      <h3>2. Something is stuck and won't let me change/enable/disable permissions on the extension.</h3>
 
+      <p>-This is a common bug, in order to fix it for now, first close any social media tabs and then go to Safari -&gt; Settings -&gt; Websites then scroll down in the left panel
+      to reach to the Extensions section and in there, just flip the stuck website's permissions to "Ask" instead of "Allow" and then close the Settings tab. After this, open that site
+      and once you get a prompt, choose "Always allow for on this website" so that this problem does not occur again.</p>
+
+      <p>Do it all the sites if you need to.</p>
+
+      <a class="back" href="/index.html" target="_top">← Back to Home</a>
+    </main>
+
+    <footer class="foot">
+      <div class="wrap">
+        <span class="credit">Created by <a href="https://priyamraj.com" target="_blank" rel="noopener">Priyam Raj</a></span>
+        <nav aria-label="Footer">
+          <a href="mailto:mail@warplabs.co" target="_top">Contact</a>
+          <a href="privacy-policy.html">Privacy</a>
+          <a href="help.html">Help</a>
+          <a href="about.html">About</a>
+        </nav>
       </div>
-    </section>
-    
-   
-    <br>
-    <br>
-    <footer id="footerContainer">
-        <a class="mailLink" href="/index.html" target="_top"><-- Back to Home</a>
-      </div>
-      <br>
     </footer>
-    
-
-    
   </body>
 </html>

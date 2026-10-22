@@ -1,0 +1,448 @@
+{
+	"schemaVersion": 1,
+	"rulesVersion": 202610220951,
+	"source": {
+		"upstream": "https://github.com/jordwest/news-feed-eradicator.git",
+		"commit": "3cd4367cfc2db10c2722cc39b87c274392ca59ab",
+		"date": "2026-08-23"
+	},
+	"sites": [
+		{
+			"id": "facebook",
+			"title": "Facebook",
+			"hosts": [
+				"www.facebook.com",
+				"web.facebook.com",
+				"m.facebook.com"
+			],
+			"paths": [
+				"/",
+				"/home.php"
+			],
+			"regions": [
+				{
+					"id": "main-feed",
+					"title": "Main feed",
+					"type": "hide",
+					"paths": "inherit",
+					"selectors": [
+						"div.x1hc1fzr.x1unhpq9.x6o7n8i",
+						"[data-dcm-id]"
+					],
+					"inject": {
+						"mode": "before"
+					}
+				},
+				{
+					"id": "home-stories",
+					"title": "Stories",
+					"type": "remove",
+					"paths": "inherit",
+					"selectors": [
+						"div.x193iq5w.xgmub6v.x1ceravr.x1v0nzow"
+					]
+				},
+				{
+					"id": "groups-feed",
+					"title": "Groups feed",
+					"type": "remove",
+					"paths": [
+						"/groups/feed/"
+					],
+					"selectors": [
+						"div[role=\"feed\"]"
+					],
+					"default": false,
+					"inject": {
+						"mode": "before"
+					}
+				}
+			]
+		},
+		{
+			"id": "instagram",
+			"title": "Instagram",
+			"hosts": [
+				"www.instagram.com"
+			],
+			"paths": [
+				"/"
+			],
+			"regions": [
+				{
+					"id": "main-feed",
+					"title": "Main feed",
+					"type": "hide",
+					"paths": "inherit",
+					"selectors": [
+						"main > :nth-child(1) > div[style]"
+					],
+					"inject": {
+						"mode": "overlay",
+						"overlayZIndex": 0
+					}
+				},
+				{
+					"id": "home-stories",
+					"title": "Stories",
+					"type": "remove",
+					"paths": "inherit",
+					"selectors": [
+						"section > main div.xw7yly9 > div.xmnaoh6"
+					]
+				},
+				{
+					"id": "suggested-for-you",
+					"title": "Suggested for you",
+					"type": "remove",
+					"paths": "inherit",
+					"selectors": [
+						"div:has(> div > a[href=\"/explore/people/\"])"
+					]
+				},
+				{
+					"id": "explore-suggestions",
+					"title": "Explore Suggestions",
+					"type": "remove",
+					"paths": [
+						"/explore/"
+					],
+					"selectors": [
+						"main div:has(> div > div > a[href^=\"/p/\"])"
+					]
+				}
+			]
+		},
+		{
+			"id": "twitter",
+			"title": "X",
+			"hosts": [
+				"x.com",
+				"twitter.com"
+			],
+			"paths": [
+				"/home"
+			],
+			"regions": [
+				{
+					"id": "home-timeline",
+					"title": "Main feed",
+					"type": "hide",
+					"paths": "inherit",
+					"selectors": [
+						"div[data-testid=\"primaryColumn\"] > div > div > section[role=\"region\"]",
+						"div[aria-label=\"Home timeline\"] > div > section[role=\"region\"]"
+					],
+					"inject": {
+						"mode": "overlay"
+					}
+				},
+				{
+					"id": "explore-posts",
+					"title": "Explore \"Posts For You\"",
+					"type": "remove",
+					"paths": [
+						"/explore"
+					],
+					"selectors": [
+						"div[data-testid=\"primaryColumn\"] div[data-testid=\"cellInnerDiv\"]:has(article[data-testid=\"tweet\"])"
+					]
+				},
+				{
+					"id": "todays-news",
+					"title": "Today's News",
+					"type": "remove",
+					"paths": "*",
+					"selectors": [
+						"div:has(> div[data-testid=\"news_sidebar\"])",
+						"div:has(> div[data-testid^=\"news_sidebar_article_\"])"
+					]
+				},
+				{
+					"id": "trending",
+					"title": "Trending now/What's happening",
+					"type": "remove",
+					"paths": "*",
+					"selectors": [
+						"div[aria-label=\"Timeline: Trending now\"]"
+					]
+				}
+			]
+		},
+		{
+			"id": "youtube",
+			"title": "YouTube",
+			"hosts": [
+				"www.youtube.com",
+				"youtube.com"
+			],
+			"paths": [
+				"/",
+				"/gaming",
+				"/podcasts"
+			],
+			"regions": [
+				{
+					"id": "feed",
+					"title": "Main feed",
+					"type": "hide",
+					"paths": "inherit",
+					"selectors": [
+						"ytd-browse:not([hidden])",
+						"ytd-browse"
+					],
+					"inject": {
+						"mode": "overlay-fixed",
+						"overlayZIndex": 2019
+					}
+				},
+				{
+					"id": "shorts-button",
+					"title": "Shorts button",
+					"type": "remove",
+					"paths": "*",
+					"selectors": [
+						"ytd-guide-entry-renderer:has(a[title=\"Shorts\"])",
+						"ytd-mini-guide-entry-renderer:has(a[title=\"Shorts\"])"
+					]
+				},
+				{
+					"id": "explore-nav",
+					"title": "Explore navigation menu",
+					"type": "remove",
+					"paths": "*",
+					"selectors": [
+						"ytd-guide-section-renderer:nth-child(4)"
+					]
+				},
+				{
+					"id": "end-screen-suggested",
+					"title": "End screen suggested videos",
+					"type": "remove",
+					"paths": "*",
+					"selectors": [
+						".ytp-fullscreen-grid"
+					]
+				},
+				{
+					"id": "sidebar-suggested",
+					"title": "Suggested videos sidebar",
+					"type": "hide",
+					"paths": "*",
+					"selectors": [
+						"ytd-watch-next-secondary-results-renderer"
+					]
+				},
+				{
+					"id": "comments",
+					"title": "Video comments",
+					"type": "hide",
+					"paths": "*",
+					"selectors": [
+						"ytd-comments"
+					],
+					"default": false
+				},
+				{
+					"id": "live-chat",
+					"title": "Live chat",
+					"type": "hide",
+					"paths": "*",
+					"selectors": [
+						"ytd-live-chat-frame"
+					],
+					"default": false
+				},
+				{
+					"id": "notifications",
+					"title": "Notifications",
+					"type": "remove",
+					"paths": "*",
+					"selectors": [
+						"ytd-notification-topbar-button-renderer"
+					],
+					"default": false
+				},
+				{
+					"id": "subscriptions",
+					"title": "Subscriptions",
+					"type": "remove",
+					"paths": "*",
+					"selectors": [
+						"ytd-guide-section-renderer:nth-child(2)",
+						"ytd-mini-guide-renderer:nth-child(2)"
+					],
+					"default": false
+				}
+			]
+		},
+		{
+			"id": "linkedin",
+			"title": "LinkedIn",
+			"hosts": [
+				"www.linkedin.com"
+			],
+			"paths": [
+				"/",
+				"/feed",
+				"/feed/"
+			],
+			"regions": [
+				{
+					"id": "main-feed",
+					"title": "Main feed",
+					"type": "hide",
+					"paths": "inherit",
+					"selectors": [
+						"main > div.relative > .scaffold-finite-scroll",
+						"div[componentkey^='container-update-list_mainFeed']"
+					],
+					"inject": {
+						"mode": "before"
+					}
+				},
+				{
+					"id": "news-sidebar",
+					"title": "News sidebar",
+					"type": "remove",
+					"paths": "*",
+					"selectors": [
+						"#feed-news-module",
+						"div:has(> div > div[data-view-name=\"news-module\"])",
+						"main#workspace > div:nth-child(1) > div:nth-child(1) > aside:nth-child(3) > div:first-child > div:first-child"
+					]
+				}
+			]
+		},
+		{
+			"id": "reddit",
+			"title": "Reddit",
+			"hosts": [
+				"www.reddit.com",
+				"old.reddit.com",
+				"reddit.com"
+			],
+			"paths": [
+				"/",
+				"/new/",
+				"/hot/",
+				"/rising/",
+				"/controversial/",
+				"/top/",
+				"/best/"
+			],
+			"regions": [
+				{
+					"id": "feed",
+					"title": "Feed",
+					"type": "remove",
+					"paths": "inherit",
+					"selectors": [
+						"#siteTable",
+						"shreddit-feed"
+					],
+					"inject": {
+						"mode": "before"
+					}
+				},
+				{
+					"id": "subreddit-feed",
+					"title": "Every subreddit's feed",
+					"type": "remove",
+					"paths": [
+						{
+							"regexp": "^/r/[A-Za-z0-9_]+/?((best|hot|new|top|rising)/?)?$"
+						}
+					],
+					"selectors": [
+						"#siteTable",
+						"shreddit-feed"
+					],
+					"default": false,
+					"inject": {
+						"mode": "before"
+					}
+				},
+				{
+					"id": "nav",
+					"title": "Navigation tabs (Old reddit)",
+					"type": "remove",
+					"paths": "*",
+					"selectors": [
+						"ul.tabmenu",
+						"#sr-header-area"
+					]
+				},
+				{
+					"id": "carousel",
+					"title": "Gallery Carousel",
+					"type": "remove",
+					"paths": "*",
+					"selectors": [
+						"shreddit-gallery-carousel"
+					]
+				},
+				{
+					"id": "nav-sidebar",
+					"title": "Left navigation sidebar",
+					"type": "hide",
+					"paths": "*",
+					"selectors": [
+						"reddit-sidebar-nav"
+					],
+					"default": false
+				},
+				{
+					"id": "sidebar",
+					"title": "Right sidebar",
+					"type": "hide",
+					"paths": "*",
+					"selectors": [
+						"div.side",
+						"#right-sidebar-contents"
+					],
+					"default": false
+				},
+				{
+					"id": "recently-viewed-links",
+					"title": "Recently viewed",
+					"type": "remove",
+					"paths": "*",
+					"selectors": [
+						"div.spacer:has(div.sidecontentbox)",
+						"recent-posts"
+					],
+					"default": true
+				},
+				{
+					"id": "games-on-reddit",
+					"title": "Games on Reddit",
+					"type": "remove",
+					"paths": "*",
+					"selectors": [
+						"faceplate-tracker[noun=\"games_drawer\"]",
+						"faceplate-tracker[noun=\"games_drawer\"] + hr"
+					],
+					"default": true
+				},
+				{
+					"id": "all-popular",
+					"title": "r/all and r/popular",
+					"type": "remove",
+					"paths": [
+						{
+							"regexp": "^/r/(all|popular)/?((best|hot|new|top|rising)/?)?$"
+						}
+					],
+					"selectors": [
+						"shreddit-feed",
+						"#siteTable"
+					],
+					"inject": {
+						"mode": "before"
+					}
+				}
+			]
+		}
+	]
+}
