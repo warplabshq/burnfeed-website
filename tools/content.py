@@ -12,7 +12,7 @@ STORE = "https://apps.apple.com/app/burnfeed/id6444266324?mt=12"
 
 SETUP = [
     ("Get Burnfeed", 'Buy it on <a href="/buy">burnfeed.app</a> ($4.99 once) or from the <a href="' + STORE + '" target="_blank" rel="noopener">Mac App Store</a>, and open the app once.'),
-    ("Turn it on in Safari", "Choose Safari › Settings › Extensions, tick Burnfeed, and allow it on the site."),
+    ("Turn it on in Safari", "Choose Safari › Settings › Extensions, turn on Burnfeed, and allow it on the site."),
     ("Pick what goes", "Open the site and click the Burnfeed button in Safari's toolbar. Switch the feed, or single parts of the page, on or off."),
 ]
 
@@ -41,7 +41,7 @@ GUIDES = [
         "site": "YouTube",
         "hides": ["The home feed", "Suggested videos beside the player", "The grid of suggestions at the end of a video", "Video comments and live chat", "The Shorts button, Explore menu, notifications and subscriptions list"],
         "stays": "Search, the video player, your subscriptions page, playlists and Watch Later keep working.",
-        "native": "Turning off watch history in your Google account makes YouTube's home feed empty, but it also clears your history and personalisation. Burnfeed leaves your account alone and only changes what Safari shows you.",
+        "native": "Turning off watch history in your Google account makes YouTube's home feed empty, but it also clears your history and personalization. Burnfeed leaves your account alone and only changes what Safari shows you.",
         "faq": [
             ("Will it change my YouTube account?", "No. Burnfeed only changes how YouTube looks in Safari on your Mac. Your account, history and settings stay the same."),
             ("Can I see suggestions for a moment?", "Yes. Choose \"Show feed for\" 5, 15 or 60 minutes in the Burnfeed menu. When the time is up, they burn again on their own."),
@@ -127,7 +127,7 @@ GUIDES = [
 
 
 # Comparisons: facts checked on each product's own site or store listing on 23 Oct 2026 (US prices).
-CHECKED = "Checked 23 October 2026 on each product's own site or App Store listing; prices are US prices and may change."
+CHECKED = "Checked October 23, 2026, on each product's own site or App Store listing; prices are US prices and may change."
 
 COMPARISONS = [
     {
@@ -143,7 +143,7 @@ COMPARISONS = [
             ("Hide parts of a site", "Yes, from the toolbar", "Yes"),
             ("Quote where the feed was", "Yes, or your own quotes", "Yes"),
             ("Pause a feed", "5, 15 or 60 minutes, then it burns again", "Yes"),
-            ("Price", "$4.99 once (or on the Mac App Store)", "Free, open source"),
+            ("Price", "$4.99 once ($5.99 on the Mac App Store)", "Free, open source"),
         ],
         "body": [
             ("Which should you use?", "If you browse in Chrome or Firefox, News Feed Eradicator is free and excellent. If you live in Safari on a Mac, it isn't an option, and that's the gap Burnfeed fills, with a menu that feels like part of Safari."),
@@ -163,7 +163,7 @@ COMPARISONS = [
             ("YouTube home feed and suggestions", "Yes", "Yes"),
             ("Shorts", "The Shorts button and the home feed", "Yes"),
             ("Comments, live chat, end screens", "Yes", "Yes"),
-            ("Price", "$4.99 once (or on the Mac App Store)", "Free, optional donation"),
+            ("Price", "$4.99 once ($5.99 on the Mac App Store)", "Free, optional donation"),
         ],
         "body": [
             ("Which should you use?", "In Chrome, Firefox or Edge, Unhook is free and does more on YouTube alone, like autoplay and search clutter. In Safari on a Mac, Burnfeed is the way to get the same calm, and the same switches work on Facebook, Instagram, X, LinkedIn and Reddit."),

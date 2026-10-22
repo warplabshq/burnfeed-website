@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"rulesVersion": 202610221226,
+	"rulesVersion": 202610221900,
 	"source": {
 		"upstream": "https://github.com/jordwest/news-feed-eradicator.git",
 		"commit": "3cd4367cfc2db10c2722cc39b87c274392ca59ab",
@@ -103,7 +103,7 @@
 				},
 				{
 					"id": "explore-suggestions",
-					"title": "Explore Suggestions",
+					"title": "Explore suggestions",
 					"type": "remove",
 					"paths": [
 						"/explore/"
@@ -140,7 +140,7 @@
 				},
 				{
 					"id": "explore-posts",
-					"title": "Explore \"Posts For You\"",
+					"title": "Explore posts",
 					"type": "remove",
 					"paths": [
 						"/explore"
@@ -161,7 +161,7 @@
 				},
 				{
 					"id": "trending",
-					"title": "Trending now/What's happening",
+					"title": "Trends and What's happening",
 					"type": "remove",
 					"paths": "*",
 					"selectors": [
@@ -335,7 +335,7 @@
 			"regions": [
 				{
 					"id": "feed",
-					"title": "Feed",
+					"title": "Main feed",
 					"type": "remove",
 					"paths": "inherit",
 					"selectors": [
@@ -366,7 +366,7 @@
 				},
 				{
 					"id": "nav",
-					"title": "Navigation tabs (Old reddit)",
+					"title": "Navigation tabs (old Reddit)",
 					"type": "remove",
 					"paths": "*",
 					"selectors": [
@@ -376,7 +376,7 @@
 				},
 				{
 					"id": "carousel",
-					"title": "Gallery Carousel",
+					"title": "Gallery carousels",
 					"type": "remove",
 					"paths": "*",
 					"selectors": [

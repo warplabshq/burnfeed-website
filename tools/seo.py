@@ -171,12 +171,12 @@ def main():
     guides = "".join(f"- [{g['h1']}]({SITE}/guides/{g['slug']}): {g['desc']}\n" for g in (content.GUIDES if content else []))
     (ROOT / "llms.txt").write_text(f"""# Burnfeed
 
-> Burnfeed is a Safari extension for Mac that hides the endless feed on Facebook, Instagram, X (Twitter), YouTube, LinkedIn and Reddit, part by part, and leaves a quote in its place. Search, messages and posting keep working. Nothing about your browsing leaves the Mac. $4.99 once (two Macs) or $19.99 for a team of five; no subscription. Also on the Mac App Store.
+> Burnfeed is a Safari extension for Mac that hides the endless feed on Facebook, Instagram, X (Twitter), YouTube, LinkedIn and Reddit, part by part, and leaves a quote in its place. Search, messages and posting keep working. Nothing about your browsing leaves your Mac. $4.99 once (two Macs) or $19.99 for a team of five; no subscription. Also on the Mac App Store.
 
 Made by Priyam Ventures Private Limited. Mac only (Safari). Support: {EMAIL}
 
 ## Product
-- [Home]({SITE}/): what it does, the time maths, a live demo
+- [Home]({SITE}/): what it does, the time math, a live demo
 - [Pricing]({SITE}/buy): plans, how buying works, FAQ
 - [Help]({SITE}/help): setup in Safari, pausing, permissions, refunds
 - [Changelog]({SITE}/changelog): every version since 2022
@@ -188,7 +188,7 @@ Made by Priyam Ventures Private Limited. Mac only (Safari). Support: {EMAIL}
 - What it can hide: YouTube home feed, Shorts button, suggested videos, end-screen suggestions, comments, live chat, notifications, subscriptions, Explore; X home timeline, trends, Today's News, Explore posts; Facebook news feed, stories, groups feed; Instagram home feed, stories, Suggested for you, Explore suggestions; LinkedIn home feed and news sidebar; Reddit home feed, r/all and r/popular, subreddit feeds, sidebars, recently viewed, games.
 - Pause: show a feed for 5, 15 or 60 minutes; it burns again on its own.
 - Blocking rules update from burnfeed.app when sites change, without an app update.
-- Requirements: macOS 13 and Safari 18.4 or later for the version from burnfeed.app; the App Store version needs macOS 12.
+- Requirements: macOS 13 and Safari 18.4 or later for the version from burnfeed.app; the App Store version ($5.99) needs macOS 12 or later.
 
 ## Legal
 - [Privacy Policy]({SITE}/privacy-policy)
