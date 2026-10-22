@@ -1,10 +1,5 @@
 // Burnfeed — burnfeed.app
 
-// Called by the App Store links' onclick; the link itself opens the App Store.
-window.appDownloadRedirect = () => {
-  console.log('App download page redirect');
-};
-
 // Black → red → orange → yellow → white; index 0 is drawn transparent
 const FIRE_PALETTE = [
   [7, 7, 7], [31, 7, 7], [47, 15, 7], [71, 15, 7], [87, 23, 7], [103, 31, 7], [119, 31, 7], [143, 39, 7],
